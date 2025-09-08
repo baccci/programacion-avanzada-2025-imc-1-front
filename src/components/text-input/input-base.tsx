@@ -12,41 +12,29 @@ import { Label } from './label'
 import { LeftSlot } from './left-slot'
 import { RightSlot } from './right-slot'
 import { Root } from './root'
+import type { TextInputComponent } from './types'
 import { inputsVariants } from './variants'
 
-import type { TextInputComponent } from './types'
-
 const InputBase: TextInputComponent = (props) => {
-	const {
-		children,
-		className,
-		variant,
-		size,
-		ref,
-		memoizeChildren = true,
-		...rest
-	} = props
-	const [RightSlot, LeftSlot, otherChildren] = useChildren(
-		children,
-		memoizeChildren
-	)
-	const context = useInput({
-		inputRef: ref as React.RefObject<HTMLInputElement>,
-		props
-	})
+  const { children, className, variant, size, ref, ...rest } = props
+  const [RightSlot, LeftSlot, otherChildren] = useChildren(children)
+  const context = useInput({
+    inputRef: ref as React.RefObject<HTMLInputElement>,
+    props
+  })
 
-	return (
-		<InputProvider value={context}>
-			<div
-				className={cn(inputsVariants({ variant, size, className }))}
-				{...rest}
-			>
-				{LeftSlot}
-				{otherChildren}
-				{RightSlot}
-			</div>
-		</InputProvider>
-	)
+  return (
+    <InputProvider value={context}>
+      <div
+        className={cn(inputsVariants({ variant, size, className }))}
+        {...rest}
+      >
+        {LeftSlot}
+        {otherChildren}
+        {RightSlot}
+      </div>
+    </InputProvider>
+  )
 }
 
 InputBase.displayName = 'TextInput'
