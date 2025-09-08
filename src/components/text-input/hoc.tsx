@@ -11,28 +11,27 @@ import type { InputProps } from './types'
  * or the default one (`TextInput.Input`) if not present.
  */
 export function withInput(children: React.ReactNode) {
-	// If the Input component is passed as a child, return it
-	const matchedArray = useGetChildrenByDisplayname<InputProps>(
-		children,
-		INPUT_DISPLAYNAME,
-		true
-	)
+  // If the Input component is passed as a child, return it
+  const matchedArray = useGetChildrenByDisplayname<InputProps>(
+    children,
+    INPUT_DISPLAYNAME
+  )
 
-	// Pick the first matching child if it exists
-	const matched =
-		Array.isArray(matchedArray) && matchedArray.length > 0
-			? matchedArray[0]
-			: null
+  // Pick the first matching child if it exists
+  const matched =
+    Array.isArray(matchedArray) && matchedArray.length > 0
+      ? matchedArray[0]
+      : null
 
-	const InputWrapper = (
-		props: React.ComponentProps<typeof InputBase.Input>
-	) => {
-		if (!matched) {
-			return <InputBase.Input {...props} />
-		}
+  const InputWrapper = (
+    props: React.ComponentProps<typeof InputBase.Input>
+  ) => {
+    if (!matched) {
+      return <InputBase.Input {...props} />
+    }
 
-		return React.cloneElement(matched, props)
-	}
+    return React.cloneElement(matched, props)
+  }
 
-	return InputWrapper
+  return InputWrapper
 }
