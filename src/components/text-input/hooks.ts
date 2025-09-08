@@ -1,7 +1,6 @@
 import React from 'react'
 
 import getChildrenByDisplayName from '@/components/utils/component-children'
-import { useMemoChildrenByDisplayName } from '@/hooks/memo-by-children'
 import { LEFT_SLOT_DISPLAYNAME } from './left-slot'
 import { RIGHT_SLOT_DISPLAYNAME } from './right-slot'
 
@@ -11,13 +10,7 @@ import { RIGHT_SLOT_DISPLAYNAME } from './right-slot'
  * @param children - The children of the TextInput component.
  * @returns The left and right slots, and the rest of the children separated.
  */
-export function useChildren(children: React.ReactNode, memoize = false) {
-  if (memoize) {
-    return useMemoChildrenByDisplayName(children, (children) => {
-      return separateChildren(children)
-    })
-  }
-
+export function useChildren(children: React.ReactNode) {
   return separateChildren(children)
 }
 
