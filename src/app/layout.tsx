@@ -1,0 +1,32 @@
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { Toaster } from 'sonner'
+import Providers from './providers'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter'
+})
+
+export const metadata: Metadata = {
+  title: 'Calculadora de IMC',
+  description: 'Conoce tu peso ideal y empezá a cuidar tu salud hoy'
+}
+
+export default function RootLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable} antialiased`}>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
+      </body>
+    </html>
+  )
+}
