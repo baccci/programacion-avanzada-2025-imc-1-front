@@ -13,15 +13,15 @@ export const CalculatorFields = withForm({
       <div className="flex flex-col gap-2 rounded-2xl bg-input-black-bg p-4 z-[1]">
         <div className="flex flex-col gap-2">
           <CalculatorLabel htmlFor="altura">
-            <IconRuler /> Altura (cm)
+            <IconRuler /> Altura (m)
           </CalculatorLabel>
           <form.AppField name={FORM_FIELDS.altura}>
             {(field) => (
               <field.CalculatorInput
                 id="altura"
                 name={FORM_FIELDS.altura}
-                aria-label="Altura en centímetros"
-                placeholder="170"
+                aria-label="Altura en metros"
+                placeholder="1.7"
               />
             )}
           </form.AppField>

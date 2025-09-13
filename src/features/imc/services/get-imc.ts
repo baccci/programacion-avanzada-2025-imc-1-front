@@ -17,7 +17,7 @@ export async function getIMCService(
 ): Promise<IMCResult | undefined> {
   try {
     await sleep(1000)
-    const heightInMeters = data.altura / 100
+    const heightInMeters = data.altura
     return calcularImc({ ...data, altura: heightInMeters })
 
     /* return new Promise((resolve, reject) => {

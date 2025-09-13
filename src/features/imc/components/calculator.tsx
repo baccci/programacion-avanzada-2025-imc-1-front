@@ -74,13 +74,11 @@ export const Calculator: React.FC<CalculatorProps> = ({
 }
 
 type SubmitEvent = React.FormEvent<HTMLFormElement>
+type Form = {
+  handleSubmit: () => Promise<void>
+}
 
-function genericSubmit(
-  e: SubmitEvent,
-  form: {
-    handleSubmit: () => Promise<void>
-  }
-) {
+function genericSubmit(e: SubmitEvent, form: Form) {
   e.preventDefault()
   form.handleSubmit()
 }
