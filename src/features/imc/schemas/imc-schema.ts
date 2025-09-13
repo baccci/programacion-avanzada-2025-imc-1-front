@@ -20,9 +20,9 @@ export const FORM_FIELD_ERRORS = {
 
 const heightSchema = z.number({
   error: FORM_FIELD_ERRORS.altura.required
-}).min(140, {
+}).min(1.4, {
   error: FORM_FIELD_ERRORS.altura.min
-}).max(250, {
+}).max(2.5, {
   error: FORM_FIELD_ERRORS.altura.max
 })
 const weightSchema = z.number({
