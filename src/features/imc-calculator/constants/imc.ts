@@ -1,0 +1,37 @@
+export const IMC_CATEGORIES = {
+  LOW_WEIGHT: 'Bajo peso',
+  NORMAL: 'Normal',
+  OVERWEIGHT: 'Sobrepeso',
+  OBESITY: 'Obeso',
+} as const
+
+export type IMC_CATEGORIES_TYPE = (typeof IMC_CATEGORIES)[keyof typeof IMC_CATEGORIES]
+
+export const FORM_FIELDS = {
+  altura: 'altura',
+  peso: 'peso'
+} as const
+
+export const FORM_FIELD_ERRORS = {
+  altura: {
+    min: 'La altura debe ser mayor a 1.40m',
+    max: 'La altura máxima es de 2.50m',
+    required: 'La altura es requerida'
+  },
+  peso: {
+    min: 'El peso debe ser mayor a 30kg',
+    max: 'El peso máximo es de 600kg',
+    required: 'El peso es requerido'
+  }
+}
+
+export const IMC_LIMITS = {
+  height: {
+    min: 1.4,
+    max: 2.5
+  },
+  weight: {
+    min: 30,
+    max: 600
+  }
+}

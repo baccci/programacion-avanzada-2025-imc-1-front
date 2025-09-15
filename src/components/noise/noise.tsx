@@ -10,7 +10,7 @@ export const Noise: React.FC<NoiseProps> = ({ className, ...props }) => {
       src="/media/images/noise.webp"
       alt="Noise"
       className={cn(
-        'absolute inset-0 size-full opacity-[50%] mix-blend-overlay pointer-events-none object-cover',
+        'fixed inset-0 size-full opacity-[50%] mix-blend-overlay pointer-events-none object-cover',
         className
       )}
       {...props}

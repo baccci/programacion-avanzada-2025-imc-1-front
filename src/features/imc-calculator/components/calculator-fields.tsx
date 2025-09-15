@@ -1,8 +1,8 @@
 import { IconRuler } from '@/components/icons/icon-ruler'
 import { IconWeight } from '@/components/icons/icon-weight'
 import { Line } from '@/components/line'
+import { FORM_FIELDS } from '../constants/imc'
 import { withForm } from '../lib/form'
-import { FORM_FIELDS } from '../schemas/imc-schema'
 import { CalculatorLabel } from './calculator-label'
 import { imcFormOpts } from './form-options'
 

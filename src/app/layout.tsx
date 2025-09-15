@@ -21,10 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased bg-[#191d2a]`}>
         <Providers>
           {children}
-          <Toaster />
+          <Toaster position="bottom-center" richColors />
         </Providers>
       </body>
     </html>
