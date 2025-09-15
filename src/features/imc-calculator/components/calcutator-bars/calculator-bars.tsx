@@ -21,9 +21,26 @@ export const CalculatorBars: React.FC<CalculatorBarsProps> = ({
     [IMC_CATEGORIES.OBESITY]: '#E7060B'
   }[category || IMC_CATEGORIES.NORMAL]
 
+  const maxImcContemplated = 40
+
   // The number of bars to show is based on the imc
-  const barsPerImc = barNumber / 30
-  const barsToShow = Math.floor(imc * barsPerImc)
+  const barsPerImc = barNumber / maxImcContemplated
+
+  // Apply a mild non-linear mapping that keeps 0 and max fixed but lifts mid values slightly
+  const easeOutQuad = (t: number) => t * (2 - t)
+  const mapImcNonLinear = (
+    value: number,
+    max: number,
+    amount: number = 0.35
+  ) => {
+    const t = Math.min(Math.max(value / max, 0), 1)
+    const eased = easeOutQuad(t)
+    const mixed = t + (eased - t) * amount
+    return mixed * max
+  }
+
+  const easedImc = mapImcNonLinear(imc, maxImcContemplated)
+  const barsToShow = Math.floor(easedImc * barsPerImc)
 
   return (
     <motion.div
