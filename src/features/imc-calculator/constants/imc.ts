@@ -14,24 +14,24 @@ export const FORM_FIELDS = {
 
 export const FORM_FIELD_ERRORS = {
   altura: {
-    min: 'La altura debe ser mayor a 1.40m',
-    max: 'La altura máxima es de 2.50m',
+    min: 'La altura debe ser mayor a 0m',
+    max: 'La altura máxima es de 3m',
     required: 'La altura es requerida'
   },
   peso: {
-    min: 'El peso debe ser mayor a 30kg',
-    max: 'El peso máximo es de 600kg',
+    min: 'El peso debe ser mayor a 0kg',
+    max: 'El peso máximo es de 500kg',
     required: 'El peso es requerido'
   }
 }
 
 export const IMC_LIMITS = {
   height: {
-    min: 1.4,
-    max: 2.5
+    min: 0,
+    max: 3
   },
   weight: {
-    min: 30,
-    max: 600
+    min: 0,
+    max: 500
   }
 }
