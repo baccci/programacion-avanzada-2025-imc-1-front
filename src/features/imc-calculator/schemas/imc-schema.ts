@@ -5,7 +5,7 @@ const heightSchema = z
   .number({
     error: FORM_FIELD_ERRORS.altura.required
   })
-  .min(IMC_LIMITS.height.min, {
+  .gt(IMC_LIMITS.height.min, {
     error: FORM_FIELD_ERRORS.altura.min
   })
   .max(IMC_LIMITS.height.max, {

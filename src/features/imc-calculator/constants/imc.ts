@@ -27,7 +27,7 @@ export const FORM_FIELD_ERRORS = {
 
 export const IMC_LIMITS = {
   height: {
-    min: 0.1,
+    min: 0,
     max: 3
   },
   weight: {
