@@ -1,8 +1,13 @@
 import type { History } from '../types'
 
-export async function getHistoryService(): Promise<History[]> {
+export async function getHistoryService(desde?: string, hasta?: string): Promise<History[]> {
   try {
-    const response = await fetch('https://pa2025imcbackend-production.up.railway.app/imc/historial', {
+    const queryParams = []
+    if (desde) queryParams.push(`desde=${desde}`)
+    if (hasta) queryParams.push(`hasta=${hasta}`)
+    const queryString = queryParams.length ? `?${queryParams.join('&')}` : ''
+
+    const response = await fetch('https://pa2025imcbackend-production.up.railway.app/imc/historial${queryString}', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
