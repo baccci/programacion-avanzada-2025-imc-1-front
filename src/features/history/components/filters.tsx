@@ -4,6 +4,7 @@ import React from 'react'
 import type { DateValue } from 'react-aria-components'
 import { Button } from '@/components/button'
 import { IconFilter } from '@/components/icons/icon-filter'
+import { IconTrash } from '@/components/icons/icon-trash'
 import { Label } from '@/components/text-input/label'
 import { cn } from '@/components/utils/taildwind-class-merge'
 import { DATE_RANGE_FIELDS } from '../constants/constants'
@@ -14,6 +15,9 @@ type DateRangeFields =
   (typeof DATE_RANGE_FIELDS)[keyof typeof DATE_RANGE_FIELDS]
 
 export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
+  const fromId = React.useRef<number>(Math.random())
+  const toId = React.useRef<number>(Math.random())
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const [from, setFrom] = React.useState('')
@@ -46,6 +50,17 @@ export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
       updateDateRange(dateString)
     }
 
+  const handleClearFilters = () => {
+    const queryParams = new URLSearchParams(window.location.search)
+    queryParams.delete('from')
+    queryParams.delete('to')
+
+    fromId.current = Math.random()
+    toId.current = Math.random()
+
+    router.push(`?${queryParams.toString()}`, { scroll: true })
+  }
+
   return (
     <div
       className={cn(
@@ -61,6 +76,7 @@ export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
             aria-label="Fecha de inicio"
             onChange={handleDatePickcerChange(DATE_RANGE_FIELDS.FROM)}
             defaultValue={fromDate}
+            key={fromId.current}
           />
         </div>
 
@@ -70,15 +86,25 @@ export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
             aria-label="Fecha de fin"
             onChange={handleDatePickcerChange(DATE_RANGE_FIELDS.TO)}
             defaultValue={toDate}
+            key={toId.current}
           />
         </div>
 
-        <Button
-          onClick={handleFilter}
-          className="ml-auto bg-jordy-blue-600 hover:bg-jordy-blue-700 flex items-center gap-1"
-        >
-          <IconFilter width={16} /> Filtrar
-        </Button>
+        <div className="ml-auto flex gap-2">
+          <Button
+            variant={'outline'}
+            className="bg-transparent text-input-bg/70 border-jordy-blue-600"
+            onClick={handleClearFilters}
+          >
+            <IconTrash width={16} />
+          </Button>
+          <Button
+            onClick={handleFilter}
+            className=" bg-jordy-blue-600 hover:bg-jordy-blue-700 flex items-center gap-1"
+          >
+            <IconFilter width={16} /> Filtrar
+          </Button>
+        </div>
       </div>
     </div>
   )
