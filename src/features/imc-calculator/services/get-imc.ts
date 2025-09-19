@@ -1,5 +1,5 @@
 import { toast } from 'sonner'
-import { sleep } from '@/utils/sleep'
+import { env } from '@/lib/env'
 import { IMC_CATEGORIES, type IMC_CATEGORIES_TYPE } from '../constants/imc'
 
 export type IMCData = {
@@ -16,8 +16,9 @@ export async function getIMCService(
   data: IMCData
 ): Promise<IMCResult | undefined> {
   try {
+    const backendUrl = env.backend.URL || 'http://localhost:3000';
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/imc/calcular', {
+      fetch(`${backendUrl}/imc/historial`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
