@@ -17,7 +17,7 @@ export async function getIMCService(
 ): Promise<IMCResult | undefined> {
   try {
     return new Promise((resolve, reject) => {
-      fetch('https://pa2025imcbackend-production.up.railway.app/imc/calcular', {
+      fetch('http://localhost:3000/imc/calcular', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

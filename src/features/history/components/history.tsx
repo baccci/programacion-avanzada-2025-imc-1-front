@@ -1,19 +1,56 @@
 'use client'
 
+import { Ring } from '@uiball/loaders'
+import type React from 'react'
 import { ConditionalRender } from '@/components/conditional-render'
-import { useHistory } from '../hooks/history'
-import type { History as HistoryType } from '../types'
+import { HistoryProvider, useHistory } from '../hooks/history'
 import { columns } from './columns'
 import { DataTable } from './data-table'
+import { Filters } from './filters'
+import IMCPagination from './imc-pagination'
 
 type HistoryProps = React.ComponentProps<'div'>
 
 export const HistoryTable: React.FC<HistoryProps> = () => {
-  const { data } = useHistory()
+  const { data, isLoading } = useHistory()
+  const emptyTable = data?.items.length === 0
+
+  const HistoryContentLoader = withLoading(HistoryContent)
 
   return (
-    <ConditionalRender condition={!(data?.length === 0)}>
-      <DataTable columns={columns} data={data ?? ([] as HistoryType[])} />
+    <HistoryProvider>
+      <div className="space-y-4">
+        <Filters />
+
+        <HistoryContentLoader isLoading={isLoading} emptyTable={emptyTable} />
+      </div>
+    </HistoryProvider>
+  )
+}
+
+const HistoryContent: React.FC<{ emptyTable: boolean }> = ({ emptyTable }) => {
+  return (
+    <ConditionalRender condition={!emptyTable}>
+      <DataTable columns={columns} />
+      <IMCPagination paginationItemsToDisplay={5} />
     </ConditionalRender>
   )
+}
+
+function withLoading<P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) {
+  return (props: P & { isLoading: boolean }) => {
+    const { isLoading, ...rest } = props
+
+    if (isLoading) {
+      return (
+        <div className="w-full flex justify-center pt-10">
+          <Ring color="#eeeeee" size={20} />
+        </div>
+      )
+    }
+
+    return <WrappedComponent {...(rest as P)} />
+  }
 }

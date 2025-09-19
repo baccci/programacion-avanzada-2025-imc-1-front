@@ -1,51 +1,51 @@
 import React from 'react'
 
 export function createContext<ContextValue>(useValue: () => ContextValue) {
-	const Context = React.createContext<ContextValue | null>(null)
+  const Context = React.createContext<ContextValue | null>(null)
 
-	function Provider({ children }: { children: React.ReactNode }) {
-		const value = useValue()
-		return <Context.Provider value={value}>{children}</Context.Provider>
-	}
+  function Provider({ children }: { children: React.ReactNode }) {
+    const value = useValue()
+    return <Context.Provider value={value}>{children}</Context.Provider>
+  }
 
-	function useContext() {
-		const context = React.use(Context)
+  function useContext() {
+    const context = React.useContext(Context)
 
-		if (!context) {
-			throw new Error('useContext must be used within a Provider')
-		}
+    if (!context) {
+      throw new Error('useContext must be used within a Provider')
+    }
 
-		return context
-	}
+    return context
+  }
 
-	return [Provider, useContext] as const
+  return [Provider, useContext] as const
 }
 
 export function deprecated_createContext<ContextValue>(
-	defaultValue?: ContextValue
+  defaultValue?: ContextValue
 ) {
-	const Context = React.createContext<ContextValue | undefined>(defaultValue)
+  const Context = React.createContext<ContextValue | undefined>(defaultValue)
 
-	const Provider = (props: {
-		value: ContextValue
-		children: React.ReactNode
-	}) => {
-		const { children, ...context } = props
+  const Provider = (props: {
+    value: ContextValue
+    children: React.ReactNode
+  }) => {
+    const { children, ...context } = props
 
-		const dependencyArray = Object.values(context)
-		const { value } = React.useMemo(() => context, dependencyArray)
+    const dependencyArray = Object.values(context)
+    const { value } = React.useMemo(() => context, dependencyArray)
 
-		return <Context.Provider value={value}>{children}</Context.Provider>
-	}
+    return <Context.Provider value={value}>{children}</Context.Provider>
+  }
 
-	const useContext = () => {
-		const context = React.use(Context)
-		if (!context && !defaultValue) {
-			throw new Error('useContext must be inside a Provider with a value')
-		}
-		if (context) return context
-		return defaultValue as ContextValue
-	}
+  const useContext = () => {
+    const context = React.use(Context)
+    if (!context && !defaultValue) {
+      throw new Error('useContext must be inside a Provider with a value')
+    }
+    if (context) return context
+    return defaultValue as ContextValue
+  }
 
-	return [Provider, useContext] as const
+  return [Provider, useContext] as const
 }
