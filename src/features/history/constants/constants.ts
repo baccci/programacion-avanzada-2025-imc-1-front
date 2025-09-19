@@ -12,3 +12,8 @@ export const HISTORY_COLUMNS = {
   CATEGORIA: 'categoria',
   FECHA: 'fecha'
 } as const
+
+export const DATE_RANGE_FIELDS = {
+  FROM: 'from',
+  TO: 'to'
+} as const

@@ -1,8 +1,9 @@
 import type React from 'react'
 
-type IconChevronRightProps = React.ComponentProps<'svg'>
+type IconMoreProps = React.ComponentProps<'svg'>
 
-export const IconChevronRight: React.FC<IconChevronRightProps> = ({
+export const IconMore: React.FC<IconMoreProps> = ({
+  className,
   width = 24,
   ...props
 }) => {
@@ -18,7 +19,9 @@ export const IconChevronRight: React.FC<IconChevronRightProps> = ({
       {...props}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M9 6l6 6l-6 6" />
+      <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+      <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+      <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
     </svg>
   )
 }

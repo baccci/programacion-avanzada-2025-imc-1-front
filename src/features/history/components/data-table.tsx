@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable
 } from '@tanstack/react-table'
-
+import React from 'react'
 import {
   Table,
   TableBody,
@@ -15,18 +15,20 @@ import {
   TableHeader,
   TableRow
 } from '@/components/table'
+import { useHistoryContext } from '../hooks/history'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
 }
 
 export function DataTable<TData, TValue>({
-  columns,
-  data
+  columns
 }: DataTableProps<TData, TValue>) {
+  const { data } = useHistoryContext()
+  const items = data?.items
+
   const table = useReactTable({
-    data,
+    data: items as TData[],
     columns,
     getCoreRowModel: getCoreRowModel()
   })

@@ -1,8 +1,8 @@
 'use client'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import { HISTORY_COLUMNS } from '../constants'
-import type { History as HistoryType } from '../types'
+import { HISTORY_COLUMNS } from '../constants/constants'
+import type { History as HistoryType } from '../types/types'
 
 export const columns: ColumnDef<HistoryType>[] = [
   {

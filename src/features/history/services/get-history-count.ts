@@ -1,14 +1,16 @@
 import { env } from '@/lib/env'
-import type { HistoryResponse } from '../types/types'
 
-export async function getHistoryService(from?: string | null, to?: string | null, page?: string | null): Promise<HistoryResponse> {
+type Response = {
+  count: number
+}
+
+export async function getHistoryCountService(from?: string, to?: string): Promise<Response> {
   try {
     const backendUrl = env.backend.URL || 'http://localhost:3000'
 
-    const historialApiUrl = new URL(`${backendUrl}/imc/historial`)
+    const historialApiUrl = new URL(`${backendUrl}/imc/historial-cantidad`)
     from && historialApiUrl.searchParams.set('desde', from)
     to && historialApiUrl.searchParams.set('hasta', to)
-    historialApiUrl.searchParams.set('page', page || '1')
 
     const response = await fetch(historialApiUrl.toString(), {
       method: 'GET',
@@ -22,8 +24,8 @@ export async function getHistoryService(from?: string | null, to?: string | null
     }
 
     const data = await response.json()
-    return data as HistoryResponse
+    return data as Response
   } catch {
-    throw new Error('Failed to fetch history')
+    return { count: 0 }
   }
 }

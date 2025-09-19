@@ -1,50 +1,56 @@
 'use client'
 
+import { Ring } from '@uiball/loaders'
+import type React from 'react'
 import { ConditionalRender } from '@/components/conditional-render'
-import { useHistory } from '../hooks/history'
-import type { History as HistoryType } from '../types'
+import { HistoryProvider, useHistory } from '../hooks/history'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-import { useState } from 'react'
+import { Filters } from './filters'
+import IMCPagination from './imc-pagination'
 
 type HistoryProps = React.ComponentProps<'div'>
 
 export const HistoryTable: React.FC<HistoryProps> = () => {
-  // Estados para los filtros, se inicializan como cadenas vacías
-  const [desde, setDesde] = useState('')
-  const [hasta, setHasta] = useState('')
+  const { data, isLoading } = useHistory()
+  const emptyTable = data?.items.length === 0
 
-  // Se obtienen los datos de historial usando los filtros
-  // Si desde o hasta son cadenas vacías, se pasan como undefined
-  // para que el servicio los ignore
-  const { data, isLoading } = useHistory(desde, hasta)
+  const HistoryContentLoader = withLoading(HistoryContent)
 
   return (
-    <div className="space-y-4">
-      {/* filtros */}
-      <div className="flex gap-4">
-        <input
-          type="date"
-          value={desde}
-          onChange={(e) => setDesde(e.target.value)} // Sincroniza el estado con el input
-          className="p-2 rounded bg-input-black-bg text-white"
-        />
-        <input
-          type="date"
-          value={hasta}
-          onChange={(e) => setHasta(e.target.value)}
-          className="p-2 rounded bg-input-black-bg text-white"
-        />
-      </div>
+    <HistoryProvider>
+      <div className="space-y-4">
+        <Filters />
 
-      {/* tabla o loader */}
-      {isLoading ? (
-        <div className="text-center text-white">Cargando...</div>
-      ) : (
-        <ConditionalRender condition={!(data?.length === 0)}>
-          <DataTable columns={columns} data={data ?? ([] as HistoryType[])} />
-        </ConditionalRender>
-      )}
-    </div>
+        <HistoryContentLoader isLoading={isLoading} emptyTable={emptyTable} />
+      </div>
+    </HistoryProvider>
   )
+}
+
+const HistoryContent: React.FC<{ emptyTable: boolean }> = ({ emptyTable }) => {
+  return (
+    <ConditionalRender condition={!emptyTable}>
+      <DataTable columns={columns} />
+      <IMCPagination paginationItemsToDisplay={5} />
+    </ConditionalRender>
+  )
+}
+
+function withLoading<P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) {
+  return (props: P & { isLoading: boolean }) => {
+    const { isLoading, ...rest } = props
+
+    if (isLoading) {
+      return (
+        <div className="w-full flex justify-center pt-10">
+          <Ring color="#eeeeee" size={20} />
+        </div>
+      )
+    }
+
+    return <WrappedComponent {...(rest as P)} />
+  }
 }
