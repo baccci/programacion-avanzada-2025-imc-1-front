@@ -3,7 +3,7 @@ import type { HistoryResponse } from '../types/types'
 
 export async function getHistoryService(from?: string | null, to?: string | null, page?: string | null): Promise<HistoryResponse> {
   try {
-    const backendUrl = env.backend.URL || 'http://localhost:3000'
+    const backendUrl = env.backend.URL || 'https://pa2025imcbackend-production.up.railway.app'
 
     const historialApiUrl = new URL(`${backendUrl}/imc/historial`)
     from && historialApiUrl.searchParams.set('desde', from)

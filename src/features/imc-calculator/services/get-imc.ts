@@ -16,7 +16,7 @@ export async function getIMCService(
   data: IMCData
 ): Promise<IMCResult | undefined> {
   try {
-    const backendUrl = env.backend.URL || 'http://localhost:3000';
+    const backendUrl = env.backend.URL || 'https://pa2025imcbackend-production.up.railway.app';
     return new Promise((resolve, reject) => {
       fetch(`${backendUrl}/imc/historial`, {
         method: 'POST',
