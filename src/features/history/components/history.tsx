@@ -21,7 +21,6 @@ export const HistoryTable: React.FC<HistoryProps> = () => {
     <HistoryProvider>
       <div className="space-y-4">
         <Filters />
-
         <HistoryContentLoader isLoading={isLoading} emptyTable={emptyTable} />
       </div>
     </HistoryProvider>
@@ -30,10 +29,10 @@ export const HistoryTable: React.FC<HistoryProps> = () => {
 
 const HistoryContent: React.FC<{ emptyTable: boolean }> = ({ emptyTable }) => {
   return (
-    <ConditionalRender condition={!emptyTable}>
+    <>
       <DataTable columns={columns} />
       <IMCPagination paginationItemsToDisplay={5} />
-    </ConditionalRender>
+    </>
   )
 }
 
