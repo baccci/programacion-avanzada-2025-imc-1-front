@@ -69,7 +69,7 @@ export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
       )}
       {...props}
     >
-      <div className="flex gap-2 px-4 py-3 rounded-3xl bg-dark items-end">
+      <div className="flex gap-2 p-4 rounded-3xl bg-dark items-end">
         <div className="flex flex-col gap-1 pt-1">
           <Label className="text-xs">Desde</Label>
           <IMCDatePicker
@@ -93,7 +93,7 @@ export const Filters: React.FC<FiltersProps> = ({ className, ...props }) => {
         <div className="ml-auto flex gap-2">
           <Button
             variant={'outline'}
-            className="bg-transparent text-input-bg/70 border-jordy-blue-600"
+            className="bg-transparent text-input-bg/70 border-jordy-blue-600 hover:bg-jordy-blue-700 hover:text-white"
             onClick={handleClearFilters}
           >
             <IconTrash width={16} />

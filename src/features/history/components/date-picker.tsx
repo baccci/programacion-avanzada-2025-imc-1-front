@@ -26,7 +26,7 @@ export default function IMCDatePicker({
           <DateInput className="pe-9" />
         </Group>
         <Button
-          className={`text-muted-foreground hover:text-input-bg data-focus-visible:border-ring 
+          className={`text-muted-foreground hover:text-jordy-blue-600 data-focus-visible:border-ring 
           data-focus-visible:ring-ring/50 z-10 -ms-9 -me-px flex w-9 items-center justify-center 
           rounded-e-md transition-[color,box-shadow] outline-none data-focus-visible:ring-[3px]`}
         >

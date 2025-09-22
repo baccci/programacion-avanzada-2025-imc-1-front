@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 import { env } from '@/lib/env'
-import { IMC_CATEGORIES, type IMC_CATEGORIES_TYPE } from '../constants/imc'
+import type { IMC_CATEGORIES_TYPE } from '../constants/imc'
 
 export type IMCData = {
   altura: number
@@ -16,7 +16,8 @@ export async function getIMCService(
   data: IMCData
 ): Promise<IMCResult | undefined> {
   try {
-    const backendUrl = env.backend.URL || 'https://pa2025imcbackend-production.up.railway.app';
+    const backendUrl =
+      env.backend.URL
     return new Promise((resolve, reject) => {
       fetch(`${backendUrl}/imc/calcular`, {
         method: 'POST',
@@ -25,9 +26,9 @@ export async function getIMCService(
         },
         body: JSON.stringify(data)
       })
-        .then(res => {
+        .then((res) => {
           if (!res.ok) {
-            return reject("Error al calcular el IMC")
+            return reject('Error al calcular el IMC')
           }
           return res.json()
         })
@@ -38,4 +39,3 @@ export async function getIMCService(
     toast.error('Hubo un error al calcular el IMC')
   }
 }
-
