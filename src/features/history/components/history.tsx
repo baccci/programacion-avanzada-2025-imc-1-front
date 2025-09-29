@@ -2,12 +2,12 @@
 
 import { Ring } from '@uiball/loaders'
 import type React from 'react'
-import { ConditionalRender } from '@/components/conditional-render'
 import { HistoryProvider, useHistory } from '../hooks/history'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { Filters } from './filters'
 import IMCPagination from './imc-pagination'
+import Dashboard from './despues-vemos'
 
 type HistoryProps = React.ComponentProps<'div'>
 
@@ -32,6 +32,8 @@ const HistoryContent: React.FC<{ emptyTable: boolean }> = ({ emptyTable }) => {
     <>
       <DataTable columns={columns} />
       <IMCPagination paginationItemsToDisplay={5} />
+      
+      <Dashboard url="https://charts.mongodb.com/charts-imc-paqcduv/embed/dashboards?id=68d69a48-5e66-46d4-8f66-b9bd0d62511e&theme=dark&autoRefresh=true&maxDataAge=14400&showTitleAndDesc=false&scalingWidth=fixed&scalingHeight=fixed" />
     </>
   )
 }

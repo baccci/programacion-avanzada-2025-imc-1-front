@@ -8,7 +8,7 @@ export const envSchema = z.object({
 
 export const env = {
   backend: {
-    URL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    URL: 'http://localhost:3000', // TODO: replace with actual env variable
   }
 }
 
